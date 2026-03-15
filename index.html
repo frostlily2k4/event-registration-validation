@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Event Registration Page</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#f4f4f4;
+padding:20px;
+}
+
+h1{
+text-align:center;
+}
+
+form{
+background:white;
+padding:20px;
+width:400px;
+margin:auto;
+border-radius:10px;
+}
+
+input,select{
+width:100%;
+padding:8px;
+margin:8px 0;
+}
+
+button{
+padding:10px;
+background:green;
+color:white;
+border:none;
+cursor:pointer;
+}
+
+table{
+margin-top:30px;
+width:100%;
+border-collapse:collapse;
+}
+
+table,th,td{
+border:1px solid black;
+padding:10px;
+text-align:center;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>Event Registration</h1>
+
+<form id="registrationForm">
+
+<label>Name</label>
+<input type="text" id="name">
+
+<label>Email</label>
+<input type="email" id="email">
+
+<label>Phone</label>
+<input type="text" id="phone">
+
+<label>Date of Birth</label>
+<input type="date" id="dob">
+
+<label>Gender</label>
+<select id="gender">
+<option value="">Select</option>
+<option>Male</option>
+<option>Female</option>
+</select>
+
+<label>Event</label>
+<select id="event">
+<option value="">Select Event</option>
+<option>Workshop</option>
+<option>Seminar</option>
+<option>Hackathon</option>
+</select>
+
+<label>Mode of Participation</label>
+<input type="radio" name="mode" value="Online"> Online
+<input type="radio" name="mode" value="Offline"> Offline
+
+<br><br>
+
+<label>College / Company</label>
+<input type="text" id="college">
+
+<br>
+
+<input type="checkbox" id="confirm"> I confirm that the above details are correct.
+
+<br><br>
+
+<button type="submit">Register</button>
+
+</form>
+
+<h2>Registered Participants</h2>
+
+<table id="participantsTable">
+
+<tr>
+<th>Name</th>
+<th>Email</th>
+<th>Phone</th>
+<th>Event</th>
+<th>Mode</th>
+</tr>
+
+</table>
+
+<script>
+
+document.getElementById("registrationForm").addEventListener("submit",function(event){
+
+event.preventDefault();
+
+let name=document.getElementById("name").value.trim();
+let email=document.getElementById("email").value.trim();
+let phone=document.getElementById("phone").value.trim();
+let dob=document.getElementById("dob").value;
+let gender=document.getElementById("gender").value;
+let eventName=document.getElementById("event").value;
+let college=document.getElementById("college").value.trim();
+let mode=document.querySelector('input[name="mode"]:checked');
+let confirmBox=document.getElementById("confirm");
+
+if(name==""){
+alert("Name cannot be empty");
+return;
+}
+
+let emailPattern=/^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+
+if(!email.match(emailPattern)){
+alert("Enter valid email");
+return;
+}
+
+if(phone.length!=10){
+alert("Phone must be 10 digits");
+return;
+}
+
+if(dob==""){
+alert("Select Date of Birth");
+return;
+}
+
+if(gender==""){
+alert("Select Gender");
+return;
+}
+
+if(eventName==""){
+alert("Select Event");
+return;
+}
+
+if(!mode){
+alert("Select Participation Mode");
+return;
+}
+
+if(college==""){
+alert("Enter College/Company");
+return;
+}
+
+if(!confirmBox.checked){
+alert("Please confirm your details");
+return;
+}
+
+let table=document.getElementById("participantsTable");
+
+let row=table.insertRow();
+
+row.insertCell(0).innerHTML=name;
+row.insertCell(1).innerHTML=email;
+row.insertCell(2).innerHTML=phone;
+row.insertCell(3).innerHTML=eventName;
+row.insertCell(4).innerHTML=mode.value;
+
+alert("Registration Successful!");
+
+document.getElementById("registrationForm").reset();
+
+});
+
+</script>
+
+</body>
+
+</html>
